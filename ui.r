@@ -18,36 +18,62 @@ shinyUI(navbarPage(title = "College Finder App",theme = shinytheme("united"),
                                      choices = unique(DT$state), multiple = T, selected = c("MA","NY")),
                          sliderInput(inputId = "ugrad_total_pop", label = "School Size", 
                                      min = 0, max = 70000, step = 20, value = 40000),
-                         selectInput(inputId = "school_pop_to_plot", label = "Choose School",  
-                                     choices = DT$school_name, selected = "University of Michigan -- Ann Arbor"),
                          checkboxInput(inputId = "four_year", label = "4 Year"),
                          checkboxInput(inputId = "two_year", label = "2 Year"),
                          checkboxInput(inputId = "private", label = "Private"),
                          checkboxInput(inputId = "public", label = "Public"),
                          radioButtons(inputId = "coed", label = "Co-Educational:",
                                       choices = c("COED" = 3,
-                                                  "Female" = 1,
-                                                  "Male" = 2))
+                                                  "All Female" = 1,
+                                                  "All Male" = 2)),
+                         checkboxInput(inputId = "religious", label = "Has Religious Affiliation"),
+                         checkboxInput(inputId = "specialized", label = "Specialized School")
                  ),
                  mainPanel(
-                         dataTableOutput("school_size")
+                         dataTableOutput("school_size"),
+                         leafletOutput("college_map")
                  )
                  
                  ),
                    
-        tabPanel(title = "Map",
-                 leafletOutput("college_map")
-        ),      
-                   
         tabPanel("Academic",
                 sidebarPanel(
-                        selectInput(inputId = "state", label = "Chose State", choices = unique(DT$state), multiple = T, selected = c("MA","NY")),
-                        sliderInput(inputId = "SAT_up", label = "SAT upper", min = 0, max = 800, value = 700, step = 10),
-                        sliderInput(inputId = "SAT_lw", label = "SAT lower", min = 0, max = 800, value = 500, step = 10)
+                        sliderInput(inputId = "SAT_avg_composite_up", label = "Average SAT Upper Bound", 
+                                    min = 0, max = 1600, value = 1500, step = 10),
+                        sliderInput(inputId = "SAT_avg_composite_lw", label = "Average SAT Lower Bound", 
+                                    min = 0, max = 1600, value = 400, step = 10),
+                        sliderInput(inputId = "SAT_avg_math_up", label = "Average SAT MATH Upper Bound", 
+                                    min = 0, max = 800, value = 700, step = 10),
+                        sliderInput(inputId = "SAT_avg_math_lw", label = "Average SAT MATH Lower Bound", 
+                                    min = 0, max = 800, value = 500, step = 10),
+                        sliderInput(inputId = "SAT_avg_reading_up", label = "Average SAT READING Upper Bound", 
+                                    min = 0, max = 800, value = 700, step = 10),
+                        sliderInput(inputId = "SAT_avg_reading_lw", label = "Average SAT READING Lower Bound", 
+                                    min = 0, max = 800, value = 500, step = 10),
+                        sliderInput(inputId = "SAT_avg_writing_up", label = "Average SAT WRITING Upper Bound", 
+                                    min = 0, max = 2200, value = 2100, step = 10),
+                        sliderInput(inputId = "SAT_avg_writing_lw", label = "Average SAT WRITING Lower Bound", 
+                                    min = 0, max = 2200, value = 400, step = 10),
+                        sliderInput(inputId = "ACT_avg_composite_up", label = "Average ACT Upper Bound",
+                                    min = 0, max = 36, value = 30, step = 1),
+                        sliderInput(inputId = "ACT_avg_composite_lw", label = "Average ACT Lower Bound",
+                                    min = 0, max = 36, value = 0, step = 1),
+                        sliderInput(inputId = "ACT_avg_math_up", label = "Average ACT MATH Upper Bound",
+                                    min = 0, max = 36, value = 30, step = 1),
+                        sliderInput(inputId = "ACT_avg_math_lw", label = "Average ACT MATH Lower Bound",
+                                    min = 0, max = 36, value = 0, step = 1),
+                        sliderInput(inputId = "ACT_avg_eng_up", label = "Average ACT ENGLISH Upper Bound",
+                                    min = 0, max = 36, value = 30, step = 1),
+                        sliderInput(inputId = "ACT_avg_eng_lw", label = "Average ACT ENGLISH Lower Bound",
+                                    min = 0, max = 36, value = 0, step = 1),
+                        sliderInput(inputId = "ACT_avg_writing_up", label = "Average ACT WRITING Upper Bound",
+                                    min = 0, max = 36, value = 30, step = 1),
+                        sliderInput(inputId = "ACT_avg_writing_lw", label = "Average ACT WRITING Lower Bound",
+                                    min = 0, max = 36, value = 0, step = 1)
                 ),
 
                 mainPanel(
-                        tableOutput("college_list")
+                        dataTableOutput("college_list")
                 )
         ),
 
