@@ -36,45 +36,52 @@ shinyUI(navbarPage(title = "College Finder App",theme = shinytheme("united"),
                  
                  ),
                    
-        tabPanel("Academic",
-                sidebarPanel(
-                        sliderInput(inputId = "SAT_avg_composite_up", label = "Average SAT Upper Bound", 
-                                    min = 0, max = 1600, value = 1500, step = 10),
-                        sliderInput(inputId = "SAT_avg_composite_lw", label = "Average SAT Lower Bound", 
-                                    min = 0, max = 1600, value = 400, step = 10),
-                        sliderInput(inputId = "SAT_avg_math_up", label = "Average SAT MATH Upper Bound", 
-                                    min = 0, max = 800, value = 700, step = 10),
-                        sliderInput(inputId = "SAT_avg_math_lw", label = "Average SAT MATH Lower Bound", 
-                                    min = 0, max = 800, value = 500, step = 10),
-                        sliderInput(inputId = "SAT_avg_reading_up", label = "Average SAT READING Upper Bound", 
-                                    min = 0, max = 800, value = 700, step = 10),
-                        sliderInput(inputId = "SAT_avg_reading_lw", label = "Average SAT READING Lower Bound", 
-                                    min = 0, max = 800, value = 500, step = 10),
-                        sliderInput(inputId = "SAT_avg_writing_up", label = "Average SAT WRITING Upper Bound", 
-                                    min = 0, max = 2200, value = 2100, step = 10),
-                        sliderInput(inputId = "SAT_avg_writing_lw", label = "Average SAT WRITING Lower Bound", 
-                                    min = 0, max = 2200, value = 400, step = 10),
-                        sliderInput(inputId = "ACT_avg_composite_up", label = "Average ACT Upper Bound",
-                                    min = 0, max = 36, value = 30, step = 1),
-                        sliderInput(inputId = "ACT_avg_composite_lw", label = "Average ACT Lower Bound",
-                                    min = 0, max = 36, value = 0, step = 1),
-                        sliderInput(inputId = "ACT_avg_math_up", label = "Average ACT MATH Upper Bound",
-                                    min = 0, max = 36, value = 30, step = 1),
-                        sliderInput(inputId = "ACT_avg_math_lw", label = "Average ACT MATH Lower Bound",
-                                    min = 0, max = 36, value = 0, step = 1),
-                        sliderInput(inputId = "ACT_avg_eng_up", label = "Average ACT ENGLISH Upper Bound",
-                                    min = 0, max = 36, value = 30, step = 1),
-                        sliderInput(inputId = "ACT_avg_eng_lw", label = "Average ACT ENGLISH Lower Bound",
-                                    min = 0, max = 36, value = 0, step = 1),
-                        sliderInput(inputId = "ACT_avg_writing_up", label = "Average ACT WRITING Upper Bound",
-                                    min = 0, max = 36, value = 30, step = 1),
-                        sliderInput(inputId = "ACT_avg_writing_lw", label = "Average ACT WRITING Lower Bound",
-                                    min = 0, max = 36, value = 0, step = 1)
-                ),
-
-                mainPanel(
-                        dataTableOutput("college_list")
-                )
+        navbarMenu(title = "Academic",   
+                   tabPanel("Standardized Tests",
+                            sidebarPanel(
+                                    sliderInput(inputId = "SAT_avg_composite_up", label = "Average SAT Upper Bound", 
+                                                min = 0, max = 1600, value = 1500, step = 10),
+                                    sliderInput(inputId = "SAT_avg_composite_lw", label = "Average SAT Lower Bound", 
+                                                min = 0, max = 1600, value = 400, step = 10),
+                                    sliderInput(inputId = "SAT_avg_math_up", label = "Average SAT MATH Upper Bound", 
+                                                min = 0, max = 800, value = 700, step = 10),
+                                    sliderInput(inputId = "SAT_avg_math_lw", label = "Average SAT MATH Lower Bound", 
+                                                min = 0, max = 800, value = 500, step = 10),
+                                    sliderInput(inputId = "SAT_avg_reading_up", label = "Average SAT READING Upper Bound", 
+                                                min = 0, max = 800, value = 700, step = 10),
+                                    sliderInput(inputId = "SAT_avg_reading_lw", label = "Average SAT READING Lower Bound", 
+                                                min = 0, max = 800, value = 500, step = 10),
+                                    sliderInput(inputId = "SAT_avg_writing_up", label = "Average SAT WRITING Upper Bound", 
+                                                min = 0, max = 2200, value = 2100, step = 10),
+                                    sliderInput(inputId = "SAT_avg_writing_lw", label = "Average SAT WRITING Lower Bound", 
+                                                min = 0, max = 2200, value = 400, step = 10),
+                                    sliderInput(inputId = "ACT_avg_composite_up", label = "Average ACT Upper Bound",
+                                                min = 0, max = 36, value = 30, step = 1),
+                                    sliderInput(inputId = "ACT_avg_composite_lw", label = "Average ACT Lower Bound",
+                                                min = 0, max = 36, value = 0, step = 1),
+                                    sliderInput(inputId = "ACT_avg_math_up", label = "Average ACT MATH Upper Bound",
+                                                min = 0, max = 36, value = 30, step = 1),
+                                    sliderInput(inputId = "ACT_avg_math_lw", label = "Average ACT MATH Lower Bound",
+                                                min = 0, max = 36, value = 0, step = 1),
+                                    sliderInput(inputId = "ACT_avg_eng_up", label = "Average ACT ENGLISH Upper Bound",
+                                                min = 0, max = 36, value = 30, step = 1),
+                                    sliderInput(inputId = "ACT_avg_eng_lw", label = "Average ACT ENGLISH Lower Bound",
+                                                min = 0, max = 36, value = 0, step = 1),
+                                    sliderInput(inputId = "ACT_avg_writing_up", label = "Average ACT WRITING Upper Bound",
+                                                min = 0, max = 36, value = 30, step = 1),
+                                    sliderInput(inputId = "ACT_avg_writing_lw", label = "Average ACT WRITING Lower Bound",
+                                                min = 0, max = 36, value = 0, step = 1)
+                            ),
+                            
+                            mainPanel(
+                                    dataTableOutput("college_list")
+                            )
+                   ),
+                   
+                   tabPanel("GPA Distributions",
+                            selectInput(inputId = "school_name_gpa", label = "Type School Name", choices = unique(DT$school_name)),
+                            plotOutput("gpa_density"))
+                   
         ),
 
         navbarMenu("Campus Life",

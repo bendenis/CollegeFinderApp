@@ -78,7 +78,19 @@ shinyServer(function(input,output) {
                         select(women_club_sports)
         })
         
-        
+        output$gpa_density = renderPlot({
+                gpa_dt = DT %>% select(school_name,
+                                       GPA_3.75_higher, GPA_3.50_3.74, 
+                                       GPA_3.25_3.49, GPA_3_3.24, GPA_3_3.24,
+                                       GPA_2.50_2.99, GPA_2.0_2.49, GPA_1.0_1.99, GPA_below_1)
+                sp = c(3.875,3.625,3.37,3.12, 2.745, 2.25, 1.495, 0.5)
+                pr = as.numeric(gpa_dt[school_name == input$school_name_gpa,-1]/100)
+                dn = sample(sp, size = 10000, prob = pr, replace = T)
+                g = ggplot(data.frame(dn), aes(x = dn)) + 
+                        stat_density(bw = 0.2, alpha = 0.5) + 
+                        xlim(2,4)
+                g
+        })
         
         
 }
