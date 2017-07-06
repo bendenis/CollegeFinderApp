@@ -12,10 +12,6 @@ shinyServer(function(input,output) {
                         arrange(uni_ranking) %>%
                         select(school_name, state, city, uni_ranking, Longitude, Latitude)
         })
-        
-        output$map = renderPlot({
-                map_it(variable = dt()$uni_ranking, state = input$state, data = dt())
-                })
 
         output$college_list = renderTable({
                 head(dt(),50)
