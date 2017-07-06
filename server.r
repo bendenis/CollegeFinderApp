@@ -32,5 +32,16 @@ shinyServer(function(input,output) {
                 DT %>% filter(school_name == athletic_school_name()) %>%
                         select(women_club_sports)
         })
+        
+        output$college_map = renderLeaflet({
+                leaflet(data = dt()) %>% 
+                        setView(lng = mean(dt()$Longitude, na.rm = T), lat = mean(dt()$Latitude, na.rm = T), zoom = 7) %>% 
+                        addTiles() %>%
+                        addCircleMarkers(lng = ~Longitude, 
+                                   lat = ~Latitude, 
+                                   label = ~as.character(dt()$school_name),
+                                   clusterOptions = markerClusterOptions(zIndexOffset = 5))
+        })
+        
 }
 )

@@ -1,14 +1,15 @@
 library(shiny)
-#library(wohdMyKlovr)
 library(dplyr)
+library(leaflet)
+library(shinythemes)
 DT = data.table::fread("/Users/bendenisshaffer/Dropbox/myKlovr/CollegeFinder/Data/Interim/collegeFinderDataInjected.csv")
 
 
-shinyUI(navbarPage(title = "College Finder App",
+shinyUI(navbarPage(title = "College Finder App",theme = shinytheme("cyborg"),
         
         tabPanel("Academic",
                 sidebarPanel(
-                        selectInput(inputId = "state", label = "Chose State", choices = unique(DT$state)),
+                        selectInput(inputId = "state", label = "Chose State", choices = unique(DT$state), multiple = T, selected = c("MA","NY")),
                         sliderInput(inputId = "SAT_up", label = "SAT upper", min = 0, max = 800, value = 700, step = 10),
                         sliderInput(inputId = "SAT_lw", label = "SAT lower", min = 0, max = 800, value = 500, step = 10),
                         checkboxInput(inputId = "four_year", label = "4 Year"),
@@ -26,7 +27,7 @@ shinyUI(navbarPage(title = "College Finder App",
         navbarMenu("Campus Life",
                 tabPanel(title = "Club Sports",
                          selectInput(inputId = "athletic_school_name", 
-                                     selected = "Harvard University", 
+                                     selected = "University of Michigan", 
                                      label = "Type School Name", 
                                      choices = DT$school_name),
                          
@@ -38,7 +39,12 @@ shinyUI(navbarPage(title = "College Finder App",
                 tabPanel(title = "Student Organizations"
                          
                          )
-        )
+        ),
+        
+        tabPanel(title = "Map",
+                 leafletOutput("college_map")
+                 )
+        
 )
 )
 
