@@ -91,6 +91,11 @@ shinyServer(function(input,output) {
                         select(grad_list)
         })
         
+        output$alumni_list = renderTable({
+                DT %>% filter(school_name == athletic_school_name()) %>%
+                        select(alum_list)
+        })
+        
         output$gpa_density = renderPlot({
                 gpa_dt = DT %>% select(school_name,
                                        GPA_3.75_higher, GPA_3.50_3.74, 

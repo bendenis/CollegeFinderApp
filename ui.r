@@ -96,8 +96,9 @@ shinyUI(navbarPage(title = "College Finder App",theme = shinytheme("united"),
                             choices = DT$school_name),
                          
                 fluidRow(
-                        column(6,tableOutput("men_club_sports")),
-                        column(6,tableOutput("women_club_sports"))
+                        column(4,tableOutput("men_club_sports")),
+                        column(4,tableOutput("women_club_sports")),
+                        column(4,tableOutput("alumni_list"))
                         ),
                          
                 fluidRow(
