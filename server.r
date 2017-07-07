@@ -1,6 +1,7 @@
 library(shiny)
 library(htmltools)
 library(stringr)
+library(data.table)
 
 
 shinyServer(function(input,output) {
@@ -13,7 +14,7 @@ shinyServer(function(input,output) {
                               coed == input$coed,
                               religious_affiliation == input$religious,
                               specialized == input$specialized) %>% 
-                        arrange(uni_ranking)
+                        arrange(uni_ranking) %>% as.data.frame()
                 tb[sapply(tb$subjects_offered, function(x) str_detect(x, input$major_selecotr)), ]
         })
         
@@ -79,6 +80,16 @@ shinyServer(function(input,output) {
                         select(women_club_sports)
         })
         
+        output$firm_list = renderTable({
+                DT %>% filter(school_name == athletic_school_name()) %>%
+                                                 select(firm_list)
+        })
+        
+        output$grad_list = renderTable({
+                DT %>% filter(school_name == athletic_school_name()) %>%
+                        select(grad_list)
+        })
+        
         output$gpa_density = renderPlot({
                 gpa_dt = DT %>% select(school_name,
                                        GPA_3.75_higher, GPA_3.50_3.74, 
@@ -93,6 +104,13 @@ shinyServer(function(input,output) {
                 g
         })
         
+        output$diversity_plot = renderPlotly({
+                diversity = DT[DT$school_name == input$athletic_school_name,c(81:83,164:172)]
+                dv = melt(diversity)
+                dv$tp = c(rep("M/F",2),"Total",rep("ByRace",9))
+                ggplot(dv, aes(x = tp, y = value, fill = variable)) +
+                        geom_bar(stat = "identity")
+        })
         
 }
 )

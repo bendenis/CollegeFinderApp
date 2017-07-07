@@ -83,26 +83,32 @@ shinyUI(navbarPage(title = "College Finder App",theme = shinytheme("united"),
                    ),
                    
                    tabPanel("GPA Distributions",
-                            selectInput(inputId = "school_name_gpa", label = "Type School Name", choices = unique(DT$school_name)),
+                            selectInput(inputId = "school_name_gpa", label = "Type School Name", choices = unique(DT$school_name),
+                                        selected = "University of Michigan -- Ann Arbor"),
                             plotOutput("gpa_density"))
                    
         ),
 
-        navbarMenu("Campus Life",
-                tabPanel(title = "Club Sports",
-                         selectInput(inputId = "athletic_school_name", 
-                                     selected = "University of Michigan -- Ann Arbor", 
-                                     label = "Type School Name", 
-                                     choices = DT$school_name),
+        tabPanel(title = "University Life",
+                selectInput(inputId = "athletic_school_name", 
+                            selected = "University of Michigan -- Ann Arbor", 
+                            label = "Type School Name", 
+                            choices = DT$school_name),
                          
-                         column(6,tableOutput("men_club_sports")),
-                         column(6,tableOutput("women_club_sports"))
+                fluidRow(
+                        column(6,tableOutput("men_club_sports")),
+                        column(6,tableOutput("women_club_sports"))
+                        ),
                          
+                fluidRow(
+                        column(6, tableOutput("firm_list")),
+                        column(6, tableOutput("grad_list"))
                          ),
-
-                tabPanel(title = "Student Organizations"
                          
+                fluidRow(
+                        column(10,plotlyOutput("diversity_plot"))
                          )
+                         
         )
         
 )
