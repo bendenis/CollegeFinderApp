@@ -6,7 +6,7 @@ library(ggplot2)
 library(plotly)
 library(data.table)
 library(stringr)
-DT = fread("/Users/bendenisshaffer/Dropbox/myKlovr/CollegeFinder/Data/Interim/collegeFinderDataInjected.csv")
+DT = fread("Data/collegeFinderDataInjected.csv")
 
 
 shinyUI(navbarPage(title = "College Finder App",theme = shinytheme("united"),
