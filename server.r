@@ -15,7 +15,8 @@ shinyServer(function(input,output) {
                               religious_affiliation == input$religious,
                               specialized == input$specialized) %>% 
                         arrange(uni_ranking) %>% as.data.frame()
-                tb[sapply(tb$subjects_offered, function(x) str_detect(x, input$major_selecotr)), ]
+                #tb[sapply(tb$subjects_offered, function(x) str_detect(x, input$major_selecotr)), ]
+                tb
         })
         
         output$school_size = renderDataTable({
