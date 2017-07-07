@@ -6,7 +6,7 @@ library(stringr)
 shinyServer(function(input,output) {
         
         dt1 = reactive({
-                DT %>% filter(Region == input$region, state == input$state,
+                tb = DT %>% filter(Region == input$region, state == input$state,
                               four_year == input$four_year | two_year == input$two_year,
                               public_or_private == input$private | public_or_private != input$public,
                               ugrad_total_pop <= input$ugrad_total_pop, 
@@ -14,10 +14,11 @@ shinyServer(function(input,output) {
                               religious_affiliation == input$religious,
                               specialized == input$specialized) %>% 
                         arrange(uni_ranking)
+                tb[sapply(tb$subjects_offered, function(x) str_detect(x, input$major_selecotr)), ]
         })
         
         output$school_size = renderDataTable({
-                dt1() %>% select(school_name, city, ugrad_total_pop, uni_ranking, college_ranking)
+                dt1() %>% select(school_name, city, ugrad_total_pop, uni_ranking)
         },
         options = list(pageLength = 10))
         

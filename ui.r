@@ -5,6 +5,7 @@ library(shinythemes)
 library(ggplot2)
 library(plotly)
 library(data.table)
+library(stringr)
 DT = fread("/Users/bendenisshaffer/Dropbox/myKlovr/CollegeFinder/Data/Interim/collegeFinderDataInjected.csv")
 
 
@@ -27,15 +28,18 @@ shinyUI(navbarPage(title = "College Finder App",theme = shinytheme("united"),
                                                   "All Female" = 1,
                                                   "All Male" = 2)),
                          checkboxInput(inputId = "religious", label = "Has Religious Affiliation"),
-                         checkboxInput(inputId = "specialized", label = "Specialized School")
+                         checkboxInput(inputId = "specialized", label = "Specialized School"),
+                         selectInput(inputId = "major_selecotr", label = "Choose Majors", 
+                                     choices = str_trim(unique(unlist(str_split(DT$subjects_offered, pattern = ","))))[-1],
+                                     multiple = T, selected = "Mathematics & Statistics")
                  ),
                  mainPanel(
-                         dataTableOutput("school_size"),
-                         leafletOutput("college_map")
+                         leafletOutput("college_map"),
+                         dataTableOutput("school_size")
                  )
                  
                  ),
-                   
+        
         navbarMenu(title = "Academic",   
                    tabPanel("Standardized Tests",
                             sidebarPanel(
