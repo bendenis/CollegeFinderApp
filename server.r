@@ -29,7 +29,7 @@ shinyServer(function(input,output) {
         })
         
         output$list1 = renderDataTable({
-                dt1() %>% select(school_name, city, uni_ranking)
+                dt1() %>% select(school_name, city, uni_ranking, selectivity_rank)
         },
         options = list(pageLength = 20))
         
@@ -54,7 +54,7 @@ shinyServer(function(input,output) {
         #### PAGE 2 ACADEMIC
         
         dt2 = reactive({
-                dt1() %>% filter(SAT_avg_composite <= input$SAT_avg_composite_up,
+                dt = dt1() %>% filter(SAT_avg_composite <= input$SAT_avg_composite_up,
                               SAT_avg_composite >= input$SAT_avg_composite_lw,
                               SAT_avg_math <= input$SAT_avg_math_up, 
                               SAT_avg_math >= input$SAT_avg_math_lw,
@@ -71,12 +71,28 @@ shinyServer(function(input,output) {
                               ACT_avg_writing <= input$ACT_avg_writing_up,
                               ACT_avg_writing >= input$ACT_avg_writing_lw) %>% 
                         arrange(uni_ranking)
+                
+                dt[sapply(dt$subjects_offered, function(x) str_detect(x, input$major_selecotr)), ]
         })
 
         output$list2 = renderDataTable({
                 dt2() %>% select(school_name, state, city,
                                SAT_range_upper, SAT_range_lower, 
-                               ACT_range_upper, ACT_range_lower)
+                               ACT_range_upper, ACT_range_lower,
+                               selectivity_rank)
+        },
+        options = list(pageLength = 20))
+        
+        output$list2sat = renderDataTable({
+                dt2() %>% select(school_name, state, city,
+                                 SAT_range_upper, SAT_range_lower,
+                                 selectivity_rank)
+        },
+        options = list(pageLength = 20))
+        output$list2act = renderDataTable({
+                dt2() %>% select(school_name, state, city,
+                                 ACT_range_upper, ACT_range_lower,
+                                 selectivity_rank)
         },
         options = list(pageLength = 20))
         
@@ -145,7 +161,7 @@ shinyServer(function(input,output) {
         })
         
         output$list3 = renderDataTable({
-                dt3() %>% select(school_name, city, uni_ranking, tuition_instate, tuition_outstate)
+                dt3() %>% select(school_name, city, uni_ranking, tuition_instate, tuition_outstate, selectivity_rank)
                 
         },
         options = list(pageLength = 20))
@@ -168,6 +184,54 @@ shinyServer(function(input,output) {
         })
         
         #### PAGE 4
+        
+        dt4 = reactive({
+                tb = dt3()
+                
+                if(input$handicapped_braille == 1){
+                        tb = tb[tb$handicapped_braille == 1,]
+                }
+                if(input$handicapped_equipment == 1){
+                        tb = tb[tb$handicapped_equipment == 1,]
+                }
+                if(input$handicapped_housing == 1){
+                        tb = tb[tb$handicapped_housing == 1,]
+                }
+                if(input$handicapped_interpeter == 1){
+                        tb = tb[tb$handicapped_interpeter == 1,]
+                }
+                if(input$handicapped_notetaking == 1){
+                        tb = tb[tb$handicapped_notetaking == 1,]
+                }
+                if(input$handicapped_reader == 1){
+                        tb = tb[tb$handicapped_reader == 1,]
+                }
+                if(input$handicapped_talkbook == 1){
+                        tb = tb[tb$handicapped_talkbook == 1,]
+                }
+                if(input$handicapped_taperecorder == 1){
+                        tb = tb[tb$handicapped_taperecorder == 1,]
+                }
+                tb
+                
+        })
+        
+        output$college_map4 = renderLeaflet({
+                
+                popup = str_c(sep = "<br/>",
+                              "<b><a href='http://www.myklovr.com'> MyKlovr </a></b>",
+                              "1350 6th Ave.",
+                              "New York, NY 98138")
+                
+                leaflet(data = dt4()) %>% 
+                        setView(lng = mean(dt3()$Longitude, na.rm = T), lat = mean(dt4()$Latitude, na.rm = T), zoom = 7) %>% 
+                        addTiles() %>%
+                        addCircleMarkers(lng = ~Longitude, 
+                                         lat = ~Latitude, 
+                                         label = ~as.character(dt4()$school_name),
+                                         clusterOptions = markerClusterOptions(zIndexOffset = 5),
+                                         popup = popup)
+        })
                 
         athletic_school_name = reactive({input$athletic_school_name})
 
@@ -203,6 +267,19 @@ shinyServer(function(input,output) {
                 ggplot(dv, aes(x = tp, y = value, fill = variable)) +
                         geom_bar(stat = "identity")
         })
+        
+        output$handicapped_services = renderTable({
+                
+                ix = which(DT$school_name == athletic_school_name())
+                ls = names(DT[ix,c(55:65)])[which(DT[ix,c(55:65)] == 1)]
+                ls
+        })
+        
+        output$list4 =  renderDataTable({
+                dt4() %>% select(school_name, city, uni_ranking, tuition_instate, tuition_outstate, selectivity_rank)
+                
+        },
+        options = list(pageLength = 10))
         
 }
 )

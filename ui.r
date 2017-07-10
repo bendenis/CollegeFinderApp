@@ -74,7 +74,12 @@ shinyUI(navbarPage(title = "College Finder App",theme = shinytheme("united"),
                                                 min = 0, max = 2200, value = 2200, step = 10),
                                     sliderInput(inputId = "SAT_avg_writing_lw", label = "Average SAT WRITING Lower Bound", 
                                                 min = 0, max = 2200, value = 0, step = 10)
-                                    )
+                                    ),
+                            
+                            mainPanel(
+                                    dataTableOutput("list2sat")
+                            )
+                            
                             ),
                    
                    tabPanel("ACT",
@@ -95,7 +100,12 @@ shinyUI(navbarPage(title = "College Finder App",theme = shinytheme("united"),
                                                 min = 0, max = 36, value = 36, step = 1),
                                     sliderInput(inputId = "ACT_avg_writing_lw", label = "Average ACT WRITING Lower Bound",
                                                 min = 0, max = 36, value = 0, step = 1)
-                                    )
+                                    ),
+                            
+                            mainPanel(
+                                    dataTableOutput("list2act")
+                            )
+                            
                             )#,
                    
                    
@@ -130,23 +140,53 @@ shinyUI(navbarPage(title = "College Finder App",theme = shinytheme("united"),
                  ),
 
         tabPanel(title = "University Life",
+                sidebarPanel(
+                        h1("Disabilities"),
+                        checkboxInput(inputId = "handicapped_housing", label = "Handicapped Housing"),
+                        checkboxInput(inputId = "handicapped_notetaking", label = "Notetaking for Handicapped Students"),
+                        checkboxInput(inputId = "handicapped_taprecorder", label = "Taperecoding for Handicapped Students"),
+                        checkboxInput(inputId = "handicapped_tutor", label = "Tutoring for Handicapped Students"),
+                        checkboxInput(inputId = "handicapped_reader", label = "Reader for Handicapped Students"),
+                        checkboxInput(inputId = "handicapped_interpeter", label = "Interpreter for Handicapped Students"),
+                        checkboxInput(inputId = "handicapped_transport", label = "Transportation for Handicapped Students"),
+                        checkboxInput(inputId = "handicapped_taperecorder", label = "Taperecoding for Handicapped Students"),
+                        checkboxInput(inputId = "handicapped_equipment", label = "Equipment for Handicapped Students"),
+                        checkboxInput(inputId = "handicapped_braille", label = "Braille Code on Campus"),
+                        checkboxInput(inputId = "handicapped_talkbook", label = "Talkbook for Handicapped Students")
+                ),
+                 
+                mainPanel(
+                         dataTableOutput("list4")
+                ),
+                 
+                leafletOutput("college_map4"),
+                 
                 selectInput(inputId = "athletic_school_name", 
                             selected = "University of Michigan -- Ann Arbor", 
                             label = "Type School Name", 
                             choices = DT$school_name),
                          
                 fluidRow(
+                        h1("Club Sports"),
                         column(4,tableOutput("men_club_sports")),
                         column(4,tableOutput("women_club_sports")),
+                        h1("Notable Alumni"),
                         column(4,tableOutput("alumni_list"))
                         ),
                          
                 fluidRow(
+                        h1("After Graduating"),
                         column(6, tableOutput("firm_list")),
                         column(6, tableOutput("grad_list"))
                          ),
-                         
+                      
                 fluidRow(
+                        h1("Disability Services"),
+                        column(6, tableOutput("handicapped_services"))
+                ),
+                   
+                fluidRow(
+                        h1("Diversity"),
                         column(10,plotlyOutput("diversity_plot"))
                          )
                          
