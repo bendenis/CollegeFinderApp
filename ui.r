@@ -6,7 +6,6 @@ library(ggplot2)
 library(plotly)
 library(data.table)
 library(stringr)
-#DT = fread("/Users/bendenisshaffer/Dropbox/myKlovr/CollegeFinder/Data/Interim/collegeFinderDataInjected3.csv")
 DT = fread("Data/D8.csv")
 
 
