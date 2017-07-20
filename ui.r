@@ -6,7 +6,7 @@ library(ggplot2)
 library(plotly)
 library(data.table)
 library(stringr)
-DT = read.csv("Data/D8.csv")
+DT = fread("Data/D8.csv")
 
 
 shinyUI(navbarPage(title = "College Finder App",theme = shinytheme("united"),

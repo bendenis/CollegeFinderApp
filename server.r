@@ -2,7 +2,8 @@ library(shiny)
 library(htmltools)
 library(stringr)
 library(data.table)
-
+library(dplyr)
+DT = fread("Data/D8.csv")
 
 shinyServer(function(input,output) {
         
