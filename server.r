@@ -234,45 +234,45 @@ shinyServer(function(input,output) {
                 
         athletic_school_name = reactive({input$athletic_school_name})
 
-        output$men_club_sports = renderTable({
-                DT %>% filter(SchoolName == athletic_school_name()) %>%
-                        select(MenClubSports)
-        })
-
-        output$women_club_sports = renderTable({
-                DT %>% filter(SchoolName == athletic_school_name()) %>%
-                        select(WomenClubSports)
-        })
-        
-        output$firm_list = renderTable({
-                DT %>% filter(SchoolName == athletic_school_name()) %>%
-                                                 select(FirmList)
-        })
-        
-        output$grad_list = renderTable({
-                DT %>% filter(SchoolName == athletic_school_name()) %>%
-                        select(GradSchoolList)
-        })
-        
-        output$alumni_list = renderTable({
-                DT %>% filter(SchoolName == athletic_school_name()) %>%
-                        select(NotableAlumni)
-        })
-        
-        output$diversity_plot = renderPlotly({
-                diversity = DT[DT$SchoolName == input$athletic_school_name,c(81:83,164:172)]
-                dv = melt(diversity)
-                dv$tp = c(rep("M/F",2),"Total",rep("ByRace",9))
-                ggplot(dv, aes(x = tp, y = value, fill = variable)) +
-                        geom_bar(stat = "identity")
-        })
-        
-        output$handicapped_services = renderTable({
-                
-                ix = which(DT$SchoolName == athletic_school_name())
-                ls = names(DT[ix,c(55:65)])[which(DT[ix,c(55:65)] == 1)]
-                ls
-        })
+        # output$men_club_sports = renderTable({
+        #         DT %>% filter(SchoolName == athletic_school_name()) %>%
+        #                 select(MenClubSports)
+        # })
+        # 
+        # output$women_club_sports = renderTable({
+        #         DT %>% filter(SchoolName == athletic_school_name()) %>%
+        #                 select(WomenClubSports)
+        # })
+        # 
+        # output$firm_list = renderTable({
+        #         DT %>% filter(SchoolName == athletic_school_name()) %>%
+        #                                          select(FirmList)
+        # })
+        # 
+        # output$grad_list = renderTable({
+        #         DT %>% filter(SchoolName == athletic_school_name()) %>%
+        #                 select(GradSchoolList)
+        # })
+        # 
+        # output$alumni_list = renderTable({
+        #         DT %>% filter(SchoolName == athletic_school_name()) %>%
+        #                 select(NotableAlumni)
+        # })
+        # 
+        # output$diversity_plot = renderPlotly({
+        #         diversity = DT[DT$SchoolName == input$athletic_school_name,c(81:83,164:172)]
+        #         dv = melt(diversity)
+        #         dv$tp = c(rep("M/F",2),"Total",rep("ByRace",9))
+        #         ggplot(dv, aes(x = tp, y = value, fill = variable)) +
+        #                 geom_bar(stat = "identity")
+        # })
+        # 
+        # output$handicapped_services = renderTable({
+        #         
+        #         ix = which(DT$SchoolName == athletic_school_name())
+        #         ls = names(DT[ix,c(55:65)])[which(DT[ix,c(55:65)] == 1)]
+        #         ls
+        # })
         
         output$list4 =  renderDataTable({
                 dt4() %>% select(SchoolName, City, rank_overall, InstateTuition, OutstateTuition, SelectivityRank)

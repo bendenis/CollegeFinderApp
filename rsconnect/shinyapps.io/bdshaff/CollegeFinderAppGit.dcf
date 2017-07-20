@@ -3,8 +3,9 @@ title: CollegeFinderAppGit
 account: bdshaff
 server: shinyapps.io
 appId: 198210
-bundleId: 909512
+bundleId: 910117
 url: https://bdshaff.shinyapps.io/CollegeFinderAppGit/
-when: 1500502989.87224
+when: 1500564221.14521
 asMultiple: FALSE
 asStatic: FALSE
+ignoredFiles: README.md
