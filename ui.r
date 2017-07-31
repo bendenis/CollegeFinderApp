@@ -129,8 +129,18 @@ shinyUI(navbarPage(title = "College Finder App",theme = shinytheme("united"),
                         checkboxInput(inputId = "college_scholarship", label = "College Scholarships"),
                         checkboxInput(inputId = "private_scholarship", label = "Private Scholarships"),
                         checkboxInput(inputId = "nursing_scholarship", label = "Nursing Scholarships"),
-                        checkboxInput(inputId = "united_negro_scholarship", label = "United Negro Scholarships")
+                        checkboxInput(inputId = "united_negro_scholarship", label = "United Negro Scholarships"),
+                        
+                        h1("Loans"),
+                        checkboxInput(inputId = "subsudised_stafford_loan", label = "Subsudised Stafford Loan"),
+                        checkboxInput(inputId = "un_subsudised_stafford_loan", label = "Unsubsudised Stafford Loan"),
+                        checkboxInput(inputId = "plus_loan", label = "PLUS Loan"),
+                        checkboxInput(inputId = "perkins_loan", label = "Perkins Loan"),
+                        checkboxInput(inputId = "nursing_loan", label = "Nursing Loan"),
+                        checkboxInput(inputId = "state_loan", label = "State Loan"),
+                        checkboxInput(inputId = "college_loan", label = "College Loan")
                         ),
+                 
                  
                         mainPanel(
                                 leafletOutput("college_map3"),

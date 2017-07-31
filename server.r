@@ -156,6 +156,29 @@ shinyServer(function(input,output) {
                 if(input$united_negro_scholarship == 1){
                         tb = tb[tb$UnitedNegroScholarship == 1,]
                 }
+                
+                if(input$subsudised_stafford_loan == 1){
+                        tb = tb[tb$SubsudisedStaffordLoan == 1,]
+                }
+                if(input$un_subsudised_stafford_loan == 1){
+                        tb = tb[tb$unSubsudisedStaffordLoan == 1,]
+                }
+                if(input$plus_loan == 1){
+                        tb = tb[tb$PLUSLoan == 1,]
+                }
+                if(input$perkins_loan == 1){
+                        tb = tb[tb$PerkinsLoan == 1,]
+                }
+                if(input$nursing_loan == 1){
+                        tb = tb[tb$NursingLoan == 1,]
+                }
+                if(input$state_loan == 1){
+                        tb = tb[tb$StateLoan == 1,]
+                }
+                if(input$college_loan == 1){
+                        tb = tb[tb$CollegeLoan == 1,]
+                }
+                
                 tb
                 
         })
